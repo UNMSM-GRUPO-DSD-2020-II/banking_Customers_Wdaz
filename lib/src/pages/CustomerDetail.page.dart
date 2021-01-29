@@ -25,6 +25,7 @@ class CustomerDetailPage extends StatefulWidget {
 class CustomerDetailPageState extends State<CustomerDetailPage> {
   Customer customer;
   CustomerDetailPageState(this.customer);
+  final generoList = ["MASCUlINO", "FEMENINO"];
 
   TextEditingController firstnameController = TextEditingController();
   TextEditingController lastnameController = TextEditingController();
@@ -186,13 +187,15 @@ class CustomerDetailPageState extends State<CustomerDetailPage> {
     }
   }
 
-  void save() {
+  void save() async {
+    int result;
+
     if (customer.id != null) {
       debugPrint('update');
       //CustomerService.update(customer);
     } else {
       debugPrint('insert');
-      ws.insertCustomer(customer);
+      result = await ws.insertCustomer(customer);
     }
     Navigator.pop(context, true);
   }
